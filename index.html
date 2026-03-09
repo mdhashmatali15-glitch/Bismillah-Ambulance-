@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Bismillah Ambulance Service – Kolkata | 24/7 Emergency</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#cc1019;--red-bg:#fff3f3;
+  --gold:#c8960a;--white:#fff;
+  --bg:#f8f6f4;--navy:#0c1b2e;
+  --text:#1a1a1a;--text2:#5a5a5a;--border:#e0d6d0;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+.page{display:none;min-height:100vh;padding-bottom:76px}
+.page.active{display:block;animation:fadeUp .25s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── TOP BAR ── */
+.top-bar{background:var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:54px;position:sticky;top:0;z-index:500;box-shadow:0 2px 14px rgba(204,16,25,.45)}
+.top-brand{font-family:'Rajdhani',sans-serif;font-size:1.15rem;font-weight:700;color:#fff;letter-spacing:1px}
+.top-call{display:flex;align-items:center;gap:8px;background:#fff;color:var(--red);text-decoration:none;border-radius:30px;padding:8px 18px;font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:1px;animation:ring 3s ease-in-out infinite}
+@keyframes ring{0%,80%,100%{transform:rotate(0)}85%{transform:rotate(-12deg)}90%{transform:rotate(12deg)}95%{transform:rotate(-8deg)}}
+.top-back{background:none;border:none;color:#fff;font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:1px;cursor:pointer;padding:8px 0}
+
+/* ══════════════════════════
+   HERO  — road scene inside
+══════════════════════════ */
+.hero{
+  position:relative;overflow:hidden;
+  min-height:380px;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:32px 20px 70px;
+  text-align:center;
+  background:linear-gradient(175deg,#1a0002 0%,#3b0007 55%,#1a0002 100%);
+}
+
+/* subtle gold lattice */
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    repeating-linear-gradient(60deg,rgba(200,150,10,.05) 0,rgba(200,150,10,.05) 1px,transparent 1px,transparent 28px),
+    repeating-linear-gradient(-60deg,rgba(200,150,10,.05) 0,rgba(200,150,10,.05) 1px,transparent 1px,transparent 28px);
+  pointer-events:none;z-index:1;
+}
+
+/* siren colour wash */
+.siren-glow{position:absolute;inset:0;pointer-events:none;z-index:2;animation:sg .75s infinite}
+@keyframes sg{
+  0%,49%{background:radial-gradient(ellipse 60% 50% at 20% 50%,rgba(255,40,40,.1),transparent)}
+  50%,100%{background:radial-gradient(ellipse 60% 50% at 80% 50%,rgba(40,80,255,.1),transparent)}
+}
+
+/* speed streaks */
+.streak{position:absolute;height:1.5px;border-radius:2px;animation:stk linear infinite;opacity:0;z-index:3}
+@keyframes stk{0%{left:105%;opacity:0}5%{opacity:.7}92%{opacity:.7}100%{left:-5%;opacity:0}}
+.sk1{top:20%;width:120px;background:linear-gradient(90deg,transparent,#ff6666,transparent);animation-duration:1.1s;animation-delay:0s}
+.sk2{top:36%;width:80px;background:linear-gradient(90deg,transparent,#fff,transparent);animation-duration:.85s;animation-delay:.3s}
+.sk3{top:54%;width:150px;background:linear-gradient(90deg,transparent,#ffcc44,transparent);animation-duration:1.3s;animation-delay:.55s}
+.sk4{top:70%;width:65px;background:linear-gradient(90deg,transparent,#ff6666,transparent);animation-duration:.75s;animation-delay:.85s}
+.sk5{top:13%;width:90px;background:linear-gradient(90deg,transparent,#fff,transparent);animation-duration:1.05s;animation-delay:.2s}
+
+/* city skyline */
+.city-layer{position:absolute;bottom:64px;left:0;right:0;height:52px;z-index:4;overflow:hidden}
+.city-inner{display:flex;align-items:flex-end;width:200%;animation:cityScroll 14s linear infinite}
+@keyframes cityScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.c{display:inline-block;background:#0d0d1a;flex-shrink:0}
+.c1{width:18px;height:40px;margin-right:2px}.c2{width:12px;height:26px;margin-right:2px}
+.c3{width:26px;height:46px;margin-right:2px}.c4{width:10px;height:18px;margin-right:4px}
+.c5{width:16px;height:32px;margin-right:2px}.c6{width:8px;height:16px;margin-right:2px}
+.c7{width:22px;height:42px;margin-right:3px}.c8{width:14px;height:28px;margin-right:3px}
+.c9{width:6px;height:14px;margin-right:2px}.c10{width:20px;height:36px;margin-right:2px}
+
+/* road */
+.road-strip{position:absolute;bottom:0;left:0;right:0;height:64px;background:#191919;z-index:5}
+.road-strip::before{
+  content:'';position:absolute;top:50%;left:0;right:0;height:4px;
+  transform:translateY(-50%);
+  background:repeating-linear-gradient(90deg,#f0c040 0,#f0c040 28px,transparent 28px,transparent 60px);
+  animation:rd .6s linear infinite;
+}
+@keyframes rd{from{background-position:0 0}to{background-position:-60px 0}}
+.road-strip::after{content:'';position:absolute;top:4px;left:0;right:0;height:2px;background:rgba(255,255,255,.2)}
+
+/* ── AMBULANCE — bigger, clearer ── */
+.amb-wrap{
+  position:absolute;bottom:8px;z-index:10;
+  animation:drive 4.5s linear infinite;
+  filter:drop-shadow(0 0 12px rgba(255,60,60,.5)) drop-shadow(0 2px 6px rgba(0,0,0,.5));
+}
+@keyframes drive{from{left:-160px}to{left:calc(100% + 160px)}}
+
+/* hero text */
+.hero-content{position:relative;z-index:8}
+.live-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(200,150,10,.15);border:1px solid rgba(200,150,10,.45);border-radius:20px;padding:5px 16px;font-size:.7rem;color:var(--gold);letter-spacing:2px;font-family:'Rajdhani',sans-serif;font-weight:600;margin-bottom:14px}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#44ee66;box-shadow:0 0 7px #44ee66;animation:blink 1.2s infinite alternate}
+@keyframes blink{from{opacity:1}to{opacity:.2}}
+.hero h1{font-family:'Rajdhani',sans-serif;font-size:clamp(2.6rem,10vw,4.4rem);font-weight:700;color:#fff;letter-spacing:3px;line-height:1}
+.hero h1 span{display:block;font-size:.47em;letter-spacing:8px;color:rgba(255,255,255,.5);margin-top:4px}
+/* business caption */
+.hero-caption{
+  margin-top:14px;
+  display:inline-flex;flex-direction:column;align-items:center;gap:6px;
+}
+.caption-line{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:30px;padding:6px 18px;
+  font-size:.83rem;color:rgba(255,255,255,.85);
+  font-weight:600;letter-spacing:.5px;
+}
+.caption-line span{font-size:1rem}
+
+.hero::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:26px;background:var(--bg);border-radius:26px 26px 0 0;z-index:11}
+
+/* ── CALL BUTTONS ── */
+.call-block{padding:22px 16px 14px}
+.big-call{display:flex;align-items:center;justify-content:center;gap:14px;background:var(--red);color:#fff;text-decoration:none;border-radius:16px;padding:20px 24px;font-family:'Rajdhani',sans-serif;font-size:1.9rem;font-weight:700;letter-spacing:2px;box-shadow:0 8px 24px rgba(204,16,25,.35);margin-bottom:12px}
+.alt-call{display:flex;align-items:center;justify-content:center;gap:10px;background:#fff;color:var(--navy);text-decoration:none;border-radius:16px;padding:16px 24px;font-family:'Rajdhani',sans-serif;font-size:1.25rem;font-weight:700;border:2px solid var(--border);letter-spacing:1px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+
+/* ── STATS ── */
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px 16px}
+.stat-card{background:#fff;border-radius:16px;padding:18px 14px;text-align:center;border:1.5px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.stat-icon{font-size:1.8rem;display:block;margin-bottom:8px}
+.stat-num{font-family:'Rajdhani',sans-serif;font-size:1.8rem;font-weight:700;color:var(--red);display:block;line-height:1}
+.stat-label{font-size:.75rem;color:var(--text2);margin-top:4px;display:block}
+
+/* ── DIVIDER ── */
+.divider{display:flex;align-items:center;gap:12px;padding:4px 16px 18px}
+.div-line{flex:1;height:1px;background:var(--border)}
+.div-dot{color:var(--red);font-size:.8rem;letter-spacing:4px}
+
+/* ── SERVICES ── */
+.section-wrap{padding:0 16px 16px}
+.sec-label{font-family:'Rajdhani',sans-serif;font-size:.72rem;letter-spacing:3px;color:var(--red);text-transform:uppercase;margin-bottom:14px;font-weight:700}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.scard{background:#fff;border-radius:16px;padding:20px 14px 16px;text-align:center;cursor:pointer;border:1.5px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.05);transition:all .18s;position:relative;overflow:hidden}
+.scard::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--red),#ff5555)}
+.scard:active{transform:scale(.97);background:var(--red-bg)}
+.scard em{font-size:2.2rem;display:block;margin-bottom:10px;font-style:normal}
+.scard strong{display:block;font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.5px;line-height:1.2;margin-bottom:5px}
+.scard small{font-size:.72rem;color:var(--text2);display:block;margin-bottom:12px;line-height:1.4}
+.view-btn{display:inline-block;background:var(--red-bg);color:var(--red);border-radius:20px;padding:5px 14px;font-size:.72rem;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px}
+
+/* ── STAFF ── */
+.staff-list{background:#fff;border-radius:16px;border:1.5px solid var(--border);overflow:hidden}
+.staff-item{display:flex;align-items:center;gap:16px;padding:16px;border-bottom:1px solid #f5eeea}
+.staff-item:last-child{border-bottom:none}
+.staff-avatar{width:52px;height:52px;border-radius:50%;flex-shrink:0;background:linear-gradient(145deg,#fff3f3,#ffe0e0);border:2px solid #f5caca;display:flex;align-items:center;justify-content:center;font-size:1.6rem;position:relative}
+.staff-badge{position:absolute;bottom:-1px;right:-1px;width:18px;height:18px;border-radius:50%;background:#22cc55;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:.5rem;color:#fff;font-weight:900}
+.staff-text strong{display:block;font-size:.95rem;color:var(--text);font-weight:700;margin-bottom:2px}
+.staff-text span{font-size:.78rem;color:var(--text2);line-height:1.4}
+
+/* ── FACILITIES ── */
+.fac-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fac-card{background:#fff;border-radius:14px;border:1.5px solid var(--border);overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.fac-img{width:100%;height:110px;display:flex;align-items:center;justify-content:center;background:#fff5f5;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.fac-label{font-size:.8rem;color:var(--text);font-weight:700;padding:10px;line-height:1.35;text-align:center}
+
+/* ── ADDRESS ── */
+.addr{margin:0 16px 16px;background:#fff;border-radius:14px;padding:16px;border:1.5px solid var(--border);display:flex;gap:12px;align-items:flex-start}
+.addr .aico{font-size:1.4rem;flex-shrink:0}
+.addr p{font-size:.85rem;color:var(--text2);line-height:1.7}
+.addr strong{color:var(--text);font-size:.9rem}
+
+/* ── DETAIL PAGES ── */
+.det-hero{background:#fff;border-bottom:1px solid var(--border);padding:20px 16px;display:flex;align-items:center;gap:16px}
+.det-emoji{font-size:3.2rem;flex-shrink:0}
+.det-info h2{font-family:'Rajdhani',sans-serif;font-size:1.6rem;font-weight:700;color:var(--text);letter-spacing:1px;text-transform:uppercase;line-height:1}
+.vtag{display:inline-flex;align-items:center;gap:5px;background:var(--red-bg);color:var(--red);border-radius:20px;padding:4px 12px;font-size:.78rem;font-family:'Rajdhani',sans-serif;font-weight:700;margin-top:7px}
+.det-calls{padding:14px 16px;background:var(--bg);display:flex;flex-direction:column;gap:10px}
+.dc-main{display:flex;align-items:center;justify-content:center;gap:12px;background:var(--red);color:#fff;text-decoration:none;border-radius:14px;padding:18px;font-family:'Rajdhani',sans-serif;font-size:1.7rem;font-weight:700;letter-spacing:2px;box-shadow:0 6px 18px rgba(204,16,25,.3)}
+.dc-alt{display:flex;align-items:center;justify-content:center;gap:10px;background:#fff;color:var(--navy);text-decoration:none;border-radius:14px;padding:14px;font-family:'Rajdhani',sans-serif;font-size:1.2rem;font-weight:700;border:2px solid var(--border);letter-spacing:1px}
+.det-body{padding:0 16px 20px}
+.card{background:#fff;border-radius:14px;padding:18px;margin-top:14px;border:1.5px solid var(--border)}
+.card-title{font-family:'Rajdhani',sans-serif;font-size:.68rem;letter-spacing:3px;color:var(--text2);text-transform:uppercase;margin-bottom:14px;font-weight:700}
+.fitem{display:flex;align-items:flex-start;gap:12px;padding:11px 0;border-bottom:1px solid #f5f0eb}
+.fitem:last-child{border-bottom:none}
+.fico{font-size:1.3rem;flex-shrink:0;margin-top:1px}
+.ftxt strong{display:block;font-size:.92rem;color:var(--text);font-weight:700;margin-bottom:2px}
+.ftxt span{font-size:.79rem;color:var(--text2)}
+
+/* ── STICKY ── */
+.sticky{position:fixed;bottom:0;left:0;right:0;display:grid;grid-template-columns:1fr 1fr;z-index:999;box-shadow:0 -3px 16px rgba(0,0,0,.12)}
+.sb{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px;text-decoration:none;color:#fff;font-family:'Rajdhani',sans-serif;font-size:.72rem;letter-spacing:1px;font-weight:700;gap:3px}
+.sb:first-child{background:var(--red)}.sb:last-child{background:var(--navy)}
+.sb .si{font-size:1.25rem}
+</style>
+</head>
+<body>
+
+<!-- ══ HOME PAGE ══ -->
+<div id="home" class="page active">
+
+<div class="top-bar">
+  <span class="top-brand">☪ BISMILLAH</span>
+  <a href="tel:+919163302935" class="top-call">📞 CALL NOW</a>
+</div>
+
+<!-- HERO with ambulance on road INSIDE -->
+<div class="hero">
+  <div class="siren-glow"></div>
+  <div class="streak sk1"></div><div class="streak sk2"></div>
+  <div class="streak sk3"></div><div class="streak sk4"></div><div class="streak sk5"></div>
+
+  <!-- Scrolling city skyline -->
+  <div class="city-layer">
+    <div class="city-inner">
+      <div class="c c1"></div><div class="c c2"></div><div class="c c3"></div>
+      <div class="c c4"></div><div class="c c5"></div><div class="c c6"></div>
+      <div class="c c7"></div><div class="c c8"></div><div class="c c9"></div>
+      <div class="c c10"></div><div class="c c1"></div><div class="c c3"></div>
+      <div class="c c2"></div><div class="c c5"></div><div class="c c7"></div>
+      <div class="c c4"></div><div class="c c6"></div><div class="c c8"></div>
+      <div class="c c10"></div><div class="c c9"></div><div class="c c1"></div>
+      <div class="c c3"></div><div class="c c5"></div><div class="c c7"></div>
+      <!-- duplicate for seamless -->
+      <div class="c c1"></div><div class="c c2"></div><div class="c c3"></div>
+      <div class="c c4"></div><div class="c c5"></div><div class="c c6"></div>
+      <div class="c c7"></div><div class="c c8"></div><div class="c c9"></div>
+      <div class="c c10"></div><div class="c c1"></div><div class="c c3"></div>
+      <div class="c c2"></div><div class="c c5"></div><div class="c c7"></div>
+      <div class="c c4"></div><div class="c c6"></div><div class="c c8"></div>
+      <div class="c c10"></div><div class="c c9"></div><div class="c c1"></div>
+      <div class="c c3"></div><div class="c c5"></div><div class="c c7"></div>
+    </div>
+  </div>
+
+  <!-- Moving road -->
+  <div class="road-strip"></div>
+
+  <!-- AMBULANCE — large, detailed, clearly visible -->
+  <div class="amb-wrap">
+    <svg width="150" height="58" viewBox="0 0 150 58" xmlns="http://www.w3.org/2000/svg">
+      <!-- Siren bar on roof -->
+      <rect x="48" y="2" width="54" height="8" rx="4" fill="#cc0000"/>
+      <!-- Siren lights alternating -->
+      <rect x="50" y="3" width="12" height="6" rx="3" fill="#ff2222">
+        <animate attributeName="fill" values="#ff2222;#550000;#ff2222" dur=".35s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;.2;1" dur=".35s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="64" y="3" width="12" height="6" rx="3" fill="#2255ff">
+        <animate attributeName="fill" values="#2255ff;#000055;#2255ff" dur=".35s" begin=".175s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values=".2;1;.2" dur=".35s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="78" y="3" width="12" height="6" rx="3" fill="#ff2222">
+        <animate attributeName="fill" values="#ff2222;#550000;#ff2222" dur=".35s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;.2;1" dur=".35s" repeatCount="indefinite"/>
+      </rect>
+      <!-- Main body -->
+      <rect x="5" y="10" width="140" height="36" rx="6" fill="#ffffff" stroke="#cccccc" stroke-width="1.5"/>
+      <!-- Red stripe across middle -->
+      <rect x="5" y="28" width="140" height="10" fill="#cc1019"/>
+      <!-- Large Red Cross -->
+      <rect x="100" y="13" width="5" height="18" rx="2.5" fill="#cc1019"/>
+      <rect x="94" y="18" width="17" height="5" rx="2.5" fill="#cc1019"/>
+      <!-- Cab / windshield -->
+      <rect x="9" y="12" width="30" height="18" rx="3" fill="#a8d4f2" stroke="#aaa" stroke-width="1"/>
+      <!-- Windshield reflection -->
+      <rect x="12" y="14" width="8" height="10" rx="1.5" fill="rgba(255,255,255,.4)"/>
+      <!-- Side windows -->
+      <rect x="115" y="12" width="24" height="16" rx="3" fill="#a8d4f2" stroke="#aaa" stroke-width="1"/>
+      <!-- BISMILLAH company text on body -->
+      <text x="70" y="25" font-family="Arial Black,Arial" font-size="7.5" fill="#cc1019" font-weight="900" text-anchor="middle" letter-spacing="1">BISMILLAH</text>
+      <!-- AMBULANCE label on stripe -->
+      <text x="75" y="36" font-family="Arial Black,Arial" font-size="6" fill="#ffffff" font-weight="900" text-anchor="middle" letter-spacing="2">AMBULANCE</text>
+      <!-- Front headlight -->
+      <ellipse cx="147" cy="34" rx="4" ry="7" fill="#ffffcc" opacity=".95">
+        <animate attributeName="opacity" values=".95;.5;.95" dur=".6s" repeatCount="indefinite"/>
+      </ellipse>
+      <!-- Extra headlight glow beam -->
+      <ellipse cx="149" cy="34" rx="2" ry="5" fill="#ffffff" opacity=".6">
+        <animate attributeName="opacity" values=".6;.2;.6" dur=".6s" repeatCount="indefinite"/>
+      </ellipse>
+      <!-- Rear red light -->
+      <rect x="4" y="28" width="4" height="8" rx="2" fill="#ff4444" opacity=".85"/>
+      <!-- Rear white reverse light -->
+      <rect x="4" y="14" width="3" height="5" rx="1.5" fill="#fffaaa" opacity=".7"/>
+      <!-- Front wheel -->
+      <circle cx="30" cy="50" r="8" fill="#222222"/>
+      <circle cx="30" cy="50" r="4" fill="#555555"/>
+      <circle cx="30" cy="50" r="1.5" fill="#aaaaaa"/>
+      <line x1="30" y1="42" x2="30" y2="58" stroke="#666" stroke-width="1.5">
+        <animateTransform attributeName="transform" type="rotate" from="0 30 50" to="360 30 50" dur=".35s" repeatCount="indefinite"/>
+      </line>
+      <line x1="22" y1="50" x2="38" y2="50" stroke="#666" stroke-width="1.5">
+        <animateTransform attributeName="transform" type="rotate" from="0 30 50" to="360 30 50" dur=".35s" repeatCount="indefinite"/>
+      </line>
+      <!-- Rear wheel -->
+      <circle cx="118" cy="50" r="8" fill="#222222"/>
+      <circle cx="118" cy="50" r="4" fill="#555555"/>
+      <circle cx="118" cy="50" r="1.5" fill="#aaaaaa"/>
+      <line x1="118" y1="42" x2="118" y2="58" stroke="#666" stroke-width="1.5">
+        <animateTransform attributeName="transform" type="rotate" from="0 118 50" to="360 118 50" dur=".35s" repeatCount="indefinite"/>
+      </line>
+      <line x1="110" y1="50" x2="126" y2="50" stroke="#666" stroke-width="1.5">
+        <animateTransform attributeName="transform" type="rotate" from="0 118 50" to="360 118 50" dur=".35s" repeatCount="indefinite"/>
+      </line>
+    </svg>
+  </div>
+
+  <!-- Hero Text -->
+  <div class="hero-content">
+    <div class="live-badge"><span class="live-dot"></span> 24 HOURS · 7 DAYS · PAN INDIA</div>
+    <h1>BISMILLAH<span>AMBULANCE SERVICE</span></h1>
+    <!-- Business caption -->
+    <div class="hero-caption">
+      <div class="caption-line"><span>🚑</span> Every second counts — We move fast, we care deeply</div>
+      <div class="caption-line"><span>❤️</span> Your family's safety is our only mission</div>
+    </div>
+  </div>
+</div>
+
+<!-- CALL BUTTONS -->
+<div class="call-block">
+  <a href="tel:+919163302935" class="big-call">📞 9163302935</a>
+  <a href="tel:+918240328198" class="alt-call">📱 Alternate: 8240328198</a>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-card">
+    <span class="stat-icon">❤️</span>
+    <span class="stat-num">20,000+</span>
+    <span class="stat-label">Patients Safely Transferred</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-icon">🚑</span>
+    <span class="stat-num">7</span>
+    <span class="stat-label">Ambulances in Fleet</span>
+  </div>
+</div>
+
+<div class="divider"><div class="div-line"></div><div class="div-dot">● ● ●</div><div class="div-line"></div></div>
+
+<!-- SERVICES -->
+<div class="section-wrap">
+  <p class="sec-label">🚑 Our Services</p>
+  <div class="grid2">
+    <div class="scard" onclick="showPage('ac')"><em>❄️</em><strong>AC Ambulance</strong><small>Maruti Eeco / Omni</small><span class="view-btn">VIEW →</span></div>
+    <div class="scard" onclick="showPage('nonac')"><em>🚐</em><strong>Non-AC Ambulance</strong><small>Eeco · Omni · Winger · Bolero</small><span class="view-btn">VIEW →</span></div>
+    <div class="scard" onclick="showPage('icu')"><em>🏥</em><strong>ICU + Ventilator</strong><small>Tata Winger</small><span class="view-btn">VIEW →</span></div>
+    <div class="scard" onclick="showPage('deadbody')"><em>🕊️</em><strong>Deadbody Carrier</strong><small>Tata Yodha</small><span class="view-btn">VIEW →</span></div>
+  </div>
+</div>
+
+<div class="divider"><div class="div-line"></div><div class="div-dot">● ● ●</div><div class="div-line"></div></div>
+
+<!-- SUPPORT STAFF -->
+<div class="section-wrap">
+  <p class="sec-label">👨‍⚕️ Support We Provide You</p>
+  <div class="staff-list">
+    <div class="staff-item">
+      <div class="staff-avatar">🧑‍⚕️<span class="staff-badge">✓</span></div>
+      <div class="staff-text"><strong>Paramedics</strong><span>Provides extensive medical care during the entire transport</span></div>
+    </div>
+    <div class="staff-item">
+      <div class="staff-avatar">🚗<span class="staff-badge">✓</span></div>
+      <div class="staff-text"><strong>Experienced Driver</strong><span>Ensures timely and safe transfer to hospital</span></div>
+    </div>
+    <div class="staff-item">
+      <div class="staff-avatar">🙋<span class="staff-badge">✓</span></div>
+      <div class="staff-text"><strong>Duty Assistant</strong><span>Supports in lifting and moving the patient safely</span></div>
+    </div>
+    <div class="staff-item">
+      <div class="staff-avatar">👨‍⚕️<span class="staff-badge">✓</span></div>
+      <div class="staff-text"><strong>On Call Doctor</strong><span>Offers clinical guidance and support to paramedics</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"><div class="div-line"></div><div class="div-dot">● ● ●</div><div class="div-line"></div></div>
+
+<!-- ON-BOARD FACILITIES -->
+<div class="section-wrap">
+  <p class="sec-label">🏥 On-Board Facilities</p>
+  <div class="fac-grid">
+    <!-- Stretcher -->
+    <div class="fac-card">
+      <div class="fac-img">
+        <svg width="90" height="80" viewBox="0 0 90 80" xmlns="http://www.w3.org/2000/svg">
+          <!-- stretcher legs -->
+          <line x1="18" y1="52" x2="12" y2="70" stroke="#999" stroke-width="3" stroke-linecap="round"/>
+          <line x1="72" y1="52" x2="78" y2="70" stroke="#999" stroke-width="3" stroke-linecap="round"/>
+          <line x1="18" y1="52" x2="24" y2="70" stroke="#999" stroke-width="3" stroke-linecap="round"/>
+          <line x1="72" y1="52" x2="66" y2="70" stroke="#999" stroke-width="3" stroke-linecap="round"/>
+          <!-- stretcher body -->
+          <rect x="10" y="38" width="70" height="14" rx="4" fill="#e8f4ff" stroke="#5599cc" stroke-width="2"/>
+          <!-- pillow -->
+          <rect x="12" y="40" width="18" height="10" rx="3" fill="#ffffff" stroke="#aaccee" stroke-width="1.5"/>
+          <!-- mattress lines -->
+          <line x1="35" y1="40" x2="35" y2="51" stroke="#aaccee" stroke-width="1"/>
+          <line x1="50" y1="40" x2="50" y2="51" stroke="#aaccee" stroke-width="1"/>
+          <!-- patient silhouette -->
+          <ellipse cx="22" cy="30" rx="7" ry="7" fill="#ffcba4" stroke="#cc9966" stroke-width="1.5"/>
+          <rect x="30" y="28" width="36" height="12" rx="3" fill="#ffcba4" stroke="#cc9966" stroke-width="1.5"/>
+          <!-- red cross on sheet -->
+          <rect x="52" y="30" width="3" height="8" rx="1" fill="#cc1019"/>
+          <rect x="49" y="33" width="9" height="3" rx="1" fill="#cc1019"/>
+          <!-- handle bars -->
+          <rect x="6" y="41" width="5" height="10" rx="2" fill="#888"/>
+          <rect x="79" y="41" width="5" height="10" rx="2" fill="#888"/>
+        </svg>
+      </div>
+      <div class="fac-label">Stretcher, Scoop &amp; Wheelchair</div>
+    </div>
+
+    <!-- Vitals instruments -->
+    <div class="fac-card">
+      <div class="fac-img">
+        <svg width="90" height="80" viewBox="0 0 90 80" xmlns="http://www.w3.org/2000/svg">
+          <!-- BP monitor box -->
+          <rect x="8" y="20" width="38" height="42" rx="5" fill="#f0f8ff" stroke="#4488cc" stroke-width="2"/>
+          <!-- screen -->
+          <rect x="13" y="25" width="28" height="18" rx="3" fill="#001a33"/>
+          <!-- heartbeat line -->
+          <polyline points="14,34 18,34 21,26 24,42 27,34 30,34 32,29 34,34 40,34" stroke="#00ff88" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <!-- BP cuff icon -->
+          <rect x="13" y="47" width="28" height="10" rx="3" fill="#cce0ff" stroke="#4488cc" stroke-width="1.5"/>
+          <text x="27" y="55" font-family="Arial" font-size="6" fill="#4488cc" text-anchor="middle" font-weight="bold">120/80</text>
+          <!-- stethoscope -->
+          <circle cx="65" cy="35" r="10" fill="none" stroke="#cc4444" stroke-width="2.5"/>
+          <path d="M65,45 Q65,58 72,58 Q79,58 79,50" fill="none" stroke="#cc4444" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="79" cy="50" r="4" fill="#cc4444"/>
+          <!-- ear pieces -->
+          <line x1="58" y1="27" x2="55" y2="22" stroke="#cc4444" stroke-width="2" stroke-linecap="round"/>
+          <line x1="72" y1="27" x2="75" y2="22" stroke="#cc4444" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="55" cy="21" r="3" fill="#cc4444"/>
+          <circle cx="75" cy="21" r="3" fill="#cc4444"/>
+        </svg>
+      </div>
+      <div class="fac-label">Instruments to Check Vitals</div>
+    </div>
+
+    <!-- Medicine -->
+    <div class="fac-card">
+      <div class="fac-img">
+        <svg width="90" height="80" viewBox="0 0 90 80" xmlns="http://www.w3.org/2000/svg">
+          <!-- medicine box -->
+          <rect x="10" y="30" width="30" height="36" rx="4" fill="#fff0f0" stroke="#cc1019" stroke-width="2"/>
+          <rect x="10" y="30" width="30" height="12" rx="4" fill="#cc1019"/>
+          <!-- cross on box -->
+          <rect x="23" y="32" width="4" height="8" rx="2" fill="#fff"/>
+          <rect x="19" y="35" width="12" height="4" rx="2" fill="#fff"/>
+          <!-- pill strips -->
+          <rect x="14" y="46" width="22" height="6" rx="2" fill="#ffe0e0" stroke="#cc9999" stroke-width="1"/>
+          <circle cx="19" cy="49" r="3" fill="#ff6666"/>
+          <circle cx="27" cy="49" r="3" fill="#ff6666"/>
+          <circle cx="31" cy="49" r="3" fill="#ff6666"/>
+          <rect x="14" y="55" width="22" height="6" rx="2" fill="#e0f0ff" stroke="#99aacc" stroke-width="1"/>
+          <circle cx="19" cy="58" r="3" fill="#4488ff"/>
+          <circle cx="27" cy="58" r="3" fill="#4488ff"/>
+          <!-- syringe -->
+          <rect x="52" y="24" width="8" height="32" rx="3" fill="#f0f8ff" stroke="#5599cc" stroke-width="1.5"/>
+          <rect x="54" y="20" width="4" height="6" rx="1" fill="#5599cc"/>
+          <line x1="56" y1="56" x2="56" y2="64" stroke="#5599cc" stroke-width="2" stroke-linecap="round"/>
+          <!-- liquid in syringe -->
+          <rect x="53" y="38" width="6" height="16" rx="2" fill="#a8d4f0"/>
+          <!-- plunger lines -->
+          <line x1="52" y1="32" x2="60" y2="32" stroke="#5599cc" stroke-width="1.5"/>
+          <line x1="52" y1="36" x2="60" y2="36" stroke="#5599cc" stroke-width="1.5"/>
+          <!-- bottle -->
+          <rect x="68" y="30" width="14" height="26" rx="4" fill="#f0fff0" stroke="#44aa44" stroke-width="1.5"/>
+          <rect x="70" y="25" width="10" height="7" rx="2" fill="#44aa44"/>
+          <rect x="72" y="22" width="6" height="4" rx="1" fill="#888"/>
+          <text x="75" y="49" font-family="Arial" font-size="5" fill="#44aa44" text-anchor="middle" font-weight="bold">Rx</text>
+        </svg>
+      </div>
+      <div class="fac-label">Essential Medicine</div>
+    </div>
+
+    <!-- Oxygen cylinder -->
+    <div class="fac-card">
+      <div class="fac-img">
+        <svg width="90" height="80" viewBox="0 0 90 80" xmlns="http://www.w3.org/2000/svg">
+          <!-- cylinder body -->
+          <rect x="30" y="22" width="30" height="48" rx="6" fill="#e8f4ff" stroke="#2266aa" stroke-width="2.5"/>
+          <!-- cylinder cap -->
+          <rect x="34" y="14" width="22" height="10" rx="4" fill="#2266aa"/>
+          <!-- valve knob -->
+          <rect x="40" y="8" width="10" height="8" rx="3" fill="#1a4488"/>
+          <rect x="43" y="5" width="4" height="5" rx="2" fill="#1a4488"/>
+          <!-- pressure gauge -->
+          <circle cx="45" cy="28" r="9" fill="#fff" stroke="#2266aa" stroke-width="1.5"/>
+          <circle cx="45" cy="28" r="6" fill="#f0f8ff"/>
+          <line x1="45" y1="28" x2="45" y2="23" stroke="#cc1019" stroke-width="2" stroke-linecap="round"/>
+          <line x1="45" y1="28" x2="49" y2="28" stroke="#333" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- O2 label -->
+          <rect x="33" y="40" width="24" height="14" rx="3" fill="#2266aa"/>
+          <text x="45" y="51" font-family="Arial Black,Arial" font-size="9" fill="#fff" text-anchor="middle" font-weight="900">O₂</text>
+          <!-- level indicator -->
+          <rect x="33" y="57" width="24" height="8" rx="2" fill="#e8f4ff" stroke="#2266aa" stroke-width="1"/>
+          <rect x="34" y="58" width="18" height="6" rx="1" fill="#44aaff"/>
+          <!-- hose -->
+          <path d="M60,40 Q72,40 72,55 Q72,68 58,68" fill="none" stroke="#88aacc" stroke-width="3" stroke-linecap="round"/>
+          <!-- mask -->
+          <ellipse cx="54" cy="70" rx="8" ry="6" fill="#cce0ff" stroke="#4488cc" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="fac-label">Oxygen Cylinder</div>
+    </div>
+
+    <!-- AED / Defibrillator -->
+    <div class="fac-card">
+      <div class="fac-img">
+        <svg width="90" height="80" viewBox="0 0 90 80" xmlns="http://www.w3.org/2000/svg">
+          <!-- AED box -->
+          <rect x="15" y="18" width="60" height="46" rx="6" fill="#1a1a2e" stroke="#33aa55" stroke-width="2.5"/>
+          <!-- green power button -->
+          <circle cx="30" cy="35" r="10" fill="#22aa44" stroke="#fff" stroke-width="1.5"/>
+          <text x="30" y="39" font-family="Arial" font-size="9" fill="#fff" text-anchor="middle" font-weight="900">⏻</text>
+          <!-- AED label -->
+          <rect x="42" y="22" width="28" height="12" rx="3" fill="#33aa55"/>
+          <text x="56" y="31" font-family="Arial Black,Arial" font-size="7.5" fill="#fff" text-anchor="middle" font-weight="900">AED</text>
+          <!-- screen with heart -->
+          <rect x="42" y="37" width="28" height="20" rx="3" fill="#001a0d"/>
+          <!-- heart rhythm line -->
+          <polyline points="43,47 47,47 49,40 52,54 55,47 58,47 60,43 62,47 69,47" stroke="#00ff66" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <!-- electrode pads -->
+          <rect x="18" y="56" width="14" height="5" rx="2" fill="#ffcc00" stroke="#cc9900" stroke-width="1"/>
+          <rect x="35" y="56" width="14" height="5" rx="2" fill="#ffcc00" stroke="#cc9900" stroke-width="1"/>
+          <!-- warning symbol -->
+          <text x="55" y="52" font-family="Arial" font-size="10" fill="#ffcc00" text-anchor="middle">⚡</text>
+        </svg>
+      </div>
+      <div class="fac-label">Automated External Defibrillator</div>
+    </div>
+
+    <!-- Reclining seats -->
+    <div class="fac-card">
+      <div class="fac-img">
+        <svg width="90" height="80" viewBox="0 0 90 80" xmlns="http://www.w3.org/2000/svg">
+          <!-- seat 1 -->
+          <!-- backrest -->
+          <rect x="8" y="22" width="14" height="30" rx="3" fill="#5566aa" stroke="#3344aa" stroke-width="1.5"/>
+          <!-- seat cushion -->
+          <rect x="6" y="48" width="22" height="12" rx="3" fill="#5566aa" stroke="#3344aa" stroke-width="1.5"/>
+          <!-- armrests -->
+          <rect x="4" y="44" width="4" height="18" rx="2" fill="#3344aa"/>
+          <rect x="26" y="44" width="4" height="18" rx="2" fill="#3344aa"/>
+          <!-- leg -->
+          <rect x="10" y="60" width="4" height="10" rx="2" fill="#3344aa"/>
+          <rect x="20" y="60" width="4" height="10" rx="2" fill="#3344aa"/>
+          <!-- headrest -->
+          <rect x="10" y="14" width="10" height="10" rx="3" fill="#6677bb" stroke="#3344aa" stroke-width="1.5"/>
+          <!-- person silhouette -->
+          <circle cx="17" cy="32" r="5" fill="#ffcba4"/>
+          <rect x="13" y="37" width="8" height="10" rx="2" fill="#cc8844"/>
+
+          <!-- seat 2 -->
+          <rect x="52" y="22" width="14" height="30" rx="3" fill="#5566aa" stroke="#3344aa" stroke-width="1.5"/>
+          <rect x="50" y="48" width="22" height="12" rx="3" fill="#5566aa" stroke="#3344aa" stroke-width="1.5"/>
+          <rect x="48" y="44" width="4" height="18" rx="2" fill="#3344aa"/>
+          <rect x="70" y="44" width="4" height="18" rx="2" fill="#3344aa"/>
+          <rect x="54" y="60" width="4" height="10" rx="2" fill="#3344aa"/>
+          <rect x="64" y="60" width="4" height="10" rx="2" fill="#3344aa"/>
+          <rect x="54" y="14" width="10" height="10" rx="3" fill="#6677bb" stroke="#3344aa" stroke-width="1.5"/>
+          <circle cx="61" cy="32" r="5" fill="#ffcba4"/>
+          <rect x="57" y="37" width="8" height="10" rx="2" fill="#cc8844"/>
+
+          <!-- label -->
+          <text x="45" y="77" font-family="Arial" font-size="7" fill="#5566aa" text-anchor="middle" font-weight="bold">2 SEATS</text>
+        </svg>
+      </div>
+      <div class="fac-label">Seats for 2 Accompanying Persons</div>
+    </div>
+  </div>
+</div>
+
+<!-- ADDRESS -->
+<div class="addr">
+  <div class="aico">📍</div>
+  <p><strong>Mohd Hussain — Bismillah Ambulance Service</strong><br/>60A Diamond Harbour Road, Khidderpore<br/>Kolkata – 700023 &nbsp;(Opposite CMRI Hospital)</p>
+</div>
+
+<div class="sticky">
+  <a href="tel:+919163302935" class="sb"><span class="si">📞</span>CALL NOW · 9163302935</a>
+  <a href="tel:+918240328198" class="sb"><span class="si">📱</span>ALT · 8240328198</a>
+</div>
+</div><!-- /home -->
+
+<!-- ══ AC PAGE ══ -->
+<div id="ac" class="page">
+<div class="top-bar"><button class="top-back" onclick="showPage('home')">← BACK</button><a href="tel:+919163302935" class="top-call">📞 CALL NOW</a></div>
+<div class="det-hero"><div class="det-emoji">❄️🚑</div><div class="det-info"><h2>AC Ambulance</h2><div class="vtag">🚗 Maruti Eeco / Omni</div></div></div>
+<div class="det-calls">
+  <a href="tel:+919163302935" class="dc-main">📞 9163302935</a>
+  <a href="tel:+918240328198" class="dc-alt">📱 Alternate: 8240328198</a>
+</div>
+<div class="det-body">
+  <div class="card">
+    <p class="card-title">❄️ What You Get</p>
+    <div class="fitem"><span class="fico">❄️</span><div class="ftxt"><strong>Fully Air Conditioned Cabin</strong><span>Cool and comfortable temperature throughout the entire journey</span></div></div>
+    <div class="fitem"><span class="fico">🛏️</span><div class="ftxt"><strong>Patient Stretcher</strong><span>Fully adjustable for maximum patient comfort</span></div></div>
+    <div class="fitem"><span class="fico">🔵</span><div class="ftxt"><strong>Oxygen Cylinder &amp; Mask</strong><span>Always ready for use during emergencies</span></div></div>
+    <div class="fitem"><span class="fico">💊</span><div class="ftxt"><strong>First Aid &amp; Essential Medicines</strong><span>Full emergency medical kit on board</span></div></div>
+    <div class="fitem"><span class="fico">👨‍✈️</span><div class="ftxt"><strong>Trained Driver + Attendant</strong><span>Experienced, caring staff throughout the journey</span></div></div>
+    <div class="fitem"><span class="fico">💺</span><div class="ftxt"><strong>Seats for 2 Family Members</strong><span>Loved ones travel alongside the patient comfortably</span></div></div>
+  </div>
+</div>
+<div class="sticky">
+  <a href="tel:+919163302935" class="sb"><span class="si">📞</span>CALL NOW · 9163302935</a>
+  <a href="tel:+918240328198" class="sb"><span class="si">📱</span>ALT · 8240328198</a>
+</div>
+</div>
+
+<!-- ══ NON-AC PAGE ══ -->
+<div id="nonac" class="page">
+<div class="top-bar"><button class="top-back" onclick="showPage('home')">← BACK</button><a href="tel:+919163302935" class="top-call">📞 CALL NOW</a></div>
+<div class="det-hero"><div class="det-emoji">🚐</div><div class="det-info"><h2>Non-AC Ambulance</h2><div class="vtag">🚗 Eeco · Omni · Winger · Bolero</div></div></div>
+<div class="det-calls">
+  <a href="tel:+919163302935" class="dc-main">📞 9163302935</a>
+  <a href="tel:+918240328198" class="dc-alt">📱 Alternate: 8240328198</a>
+</div>
+<div class="det-body">
+  <div class="card">
+    <p class="card-title">🚗 Available Vehicles &amp; Equipment</p>
+    <div class="fitem"><span class="fico">🚙</span><div class="ftxt"><strong>Maruti Eeco</strong><span>Compact and fast — ideal for city roads</span></div></div>
+    <div class="fitem"><span class="fico">🚐</span><div class="ftxt"><strong>Maruti Omni</strong><span>Lightweight and quick emergency response</span></div></div>
+    <div class="fitem"><span class="fico">🚌</span><div class="ftxt"><strong>Tata Winger</strong><span>Spacious and reliable for long distance transfers</span></div></div>
+    <div class="fitem"><span class="fico">🚙</span><div class="ftxt"><strong>Mahindra Bolero</strong><span>Powerful for inter-state &amp; rough road travel</span></div></div>
+    <div class="fitem"><span class="fico">🔵</span><div class="ftxt"><strong>Oxygen Cylinder</strong><span>Available and ready throughout the journey</span></div></div>
+    <div class="fitem"><span class="fico">🛏️</span><div class="ftxt"><strong>Stretcher &amp; First Aid Kit</strong><span>Full basic medical equipment on board</span></div></div>
+  </div>
+</div>
+<div class="sticky">
+  <a href="tel:+919163302935" class="sb"><span class="si">📞</span>CALL NOW · 9163302935</a>
+  <a href="tel:+918240328198" class="sb"><span class="si">📱</span>ALT · 8240328198</a>
+</div>
+</div>
+
+<!-- ══ ICU PAGE ══ -->
+<div id="icu" class="page">
+<div class="top-bar"><button class="top-back" onclick="showPage('home')">← BACK</button><a href="tel:+919163302935" class="top-call">📞 CALL NOW</a></div>
+<div class="det-hero"><div class="det-emoji">🏥</div><div class="det-info"><h2>ICU + Ventilator</h2><div class="vtag">🚌 Tata Winger</div></div></div>
+<div class="det-calls">
+  <a href="tel:+919163302935" class="dc-main">📞 9163302935</a>
+  <a href="tel:+918240328198" class="dc-alt">📱 Alternate: 8240328198</a>
+</div>
+<div class="det-body">
+  <div class="card">
+    <p class="card-title">🏥 ICU Equipment On Board</p>
+    <div class="fitem"><span class="fico">💨</span><div class="ftxt"><strong>Ventilator Support</strong><span>Full ventilation system for critical patients</span></div></div>
+    <div class="fitem"><span class="fico">❤️</span><div class="ftxt"><strong>Cardiac Monitor</strong><span>Continuous real-time heart monitoring throughout</span></div></div>
+    <div class="fitem"><span class="fico">💉</span><div class="ftxt"><strong>Infusion Pump</strong><span>IV drip and precision medication delivery</span></div></div>
+    <div class="fitem"><span class="fico">🔵</span><div class="ftxt"><strong>High-Flow Oxygen Cylinder</strong><span>Full oxygen support throughout the journey</span></div></div>
+    <div class="fitem"><span class="fico">👨‍⚕️</span><div class="ftxt"><strong>Doctor on Board</strong><span>Qualified doctor available throughout transport</span></div></div>
+    <div class="fitem"><span class="fico">💺</span><div class="ftxt"><strong>Reclining Seats for 2 Attendants</strong><span>Family members travel comfortably alongside</span></div></div>
+  </div>
+</div>
+<div class="sticky">
+  <a href="tel:+919163302935" class="sb"><span class="si">📞</span>CALL NOW · 9163302935</a>
+  <a href="tel:+918240328198" class="sb"><span class="si">📱</span>ALT · 8240328198</a>
+</div>
+</div>
+
+<!-- ══ DEADBODY PAGE ══ -->
+<div id="deadbody" class="page">
+<div class="top-bar"><button class="top-back" onclick="showPage('home')">← BACK</button><a href="tel:+919163302935" class="top-call">📞 CALL NOW</a></div>
+<div class="det-hero"><div class="det-emoji">🕊️</div><div class="det-info"><h2>Deadbody Carrier</h2><div class="vtag">🚐 Tata Yodha</div></div></div>
+<div class="det-calls">
+  <a href="tel:+919163302935" class="dc-main">📞 9163302935</a>
+  <a href="tel:+918240328198" class="dc-alt">📱 Alternate: 8240328198</a>
+</div>
+<div class="det-body">
+  <div class="card">
+    <p class="card-title">🕊️ Service Details</p>
+    <div class="fitem"><span class="fico">🚐</span><div class="ftxt"><strong>Tata Yodha — Dedicated Carrier</strong><span>Specially designed vehicle for respectful transport</span></div></div>
+    <div class="fitem"><span class="fico">🕊️</span><div class="ftxt"><strong>Dignified &amp; Respectful Handling</strong><span>Trained staff with utmost care and sensitivity</span></div></div>
+    <div class="fitem"><span class="fico">❄️</span><div class="ftxt"><strong>Preservation Facility Available</strong><span>Cold storage arrangement available on request</span></div></div>
+    <div class="fitem"><span class="fico">📋</span><div class="ftxt"><strong>Documentation Assistance</strong><span>Help with required paperwork when needed</span></div></div>
+    <div class="fitem"><span class="fico">🗺️</span><div class="ftxt"><strong>Pan India Service</strong><span>Transport to any city or state across India</span></div></div>
+    <div class="fitem"><span class="fico">⏰</span><div class="ftxt"><strong>Available 24 Hours, 7 Days</strong><span>We are here whenever you need us, day or night</span></div></div>
+  </div>
+</div>
+<div class="sticky">
+  <a href="tel:+919163302935" class="sb"><span class="si">📞</span>CALL NOW · 9163302935</a>
+  <a href="tel:+918240328198" class="sb"><span class="si">📱</span>ALT · 8240328198</a>
+</div>
+</div>
+
+<script>
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
